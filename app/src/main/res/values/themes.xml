@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.BrainHealth" parent="Base.Theme.BrainHealth" />
+    <style name="Theme.BrainHealth.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.BrainHealth.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.BrainHealth.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
