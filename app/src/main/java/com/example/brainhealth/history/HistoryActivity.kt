@@ -21,9 +21,9 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun tabs() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(AllHistoryFragment(), "All History")
-        adapter.addFragment(HealthyFragment(), "Healthy")
-        adapter.addFragment(SickFragment(),"Sick")
+        adapter.addFragment(AllHistoryFragment(), "Semua")
+        adapter.addFragment(HealthyFragment(), "Sehat")
+        adapter.addFragment(SickFragment(),"Tidak Sehat")
 
         binding.vpHistory.adapter = adapter
         binding.tabHistory.setupWithViewPager(binding.vpHistory)
