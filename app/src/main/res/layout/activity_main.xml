@@ -8,12 +8,54 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/activity_home_header"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/activity_main_header"
+        android:textAlignment="center"
+        android:layout_marginTop="40dp"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <ImageView
+        android:id="@+id/doctor_pointing_at_camera_icon_with_mri_machine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/doctor_pointing_at_camera_icon_with_mri_machine"
+        app:layout_constraintWidth_percent="0.85"
+        app:layout_constraintHeight_percent="0.35"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_header"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+    <View
+        android:id="@+id/home_activity_blue_card_rounded_upper_corners"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/main_activity_blue_card_rounded_upper_corners"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_pointing_at_camera_icon_with_mri_machine"
+        android:layout_marginTop="-35dp"
+        app:layout_constraintHeight_percent="0.5" />
+    <View
+        android:id="@+id/home_activity_white_card_rounded_all_corners"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/main_activity_white_card_rounded_all_corners"
+        app:layout_constraintTop_toTopOf="@+id/home_activity_blue_card_rounded_upper_corners"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"
+        app:layout_constraintWidth_percent="0.85"
+        app:layout_constraintHeight_percent="0.45" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_activity_fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/home_activity_white_card_rounded_all_corners"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintHeight_percent="0.4"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BrainHealth</string>
+    <string name="activity_main_header"><b>Unggah hasil <i>scan MRI</i> dan cek kesehatan otak Anda sekarang juga!</b></string>
+    <string name="activity_main_fragment_upload_header"><b>Unggah file</b></string>
+    <string name="activity_main_fragment_submit_header"><b>File berhasil diunggah!</b></string>
+    <string name="activity_main_fragment_result_header"><b>Hasil Anda adalah</b></string>
+    <string name="activity_main_fragment_upload_button_drag_and_drop">Drag and drop</string>
+    <string name="activity_main_fragment_upload_button_browse">Browse</string>
+    <string name="activity_main_fragment_submit_button_submit">Submit</string>
+    <string name="activity_main_fragment_result_button_retake">Retake</string>
 </resources>
