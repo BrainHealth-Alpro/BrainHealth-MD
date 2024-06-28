@@ -68,4 +68,15 @@
         tools:ignore="MissingConstraints" >
     </androidx.viewpager.widget.ViewPager>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_add_24"
+        android:backgroundTint="@color/baby_blue"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

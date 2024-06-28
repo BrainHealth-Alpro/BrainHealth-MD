@@ -7,14 +7,50 @@
     tools:context=".ResultFragment">
 
     <TextView
+        android:id="@+id/tvResultHeader"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:text="@string/activity_main_fragment_result_header"
         android:textSize="30sp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/ivResult"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/brain_verdict_healthy"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvResultHeader" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="@string/loading"
+        app:layout_constraintTop_toBottomOf="@id/ivResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/btnReTake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_main_fragment_result_button_retake"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/gray"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/tvResult"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

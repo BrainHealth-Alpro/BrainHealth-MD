@@ -1,8 +1,10 @@
 package com.example.brainhealth.history
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.brainhealth.MainActivity
 import com.example.brainhealth.adapter.ViewPagerAdapter
 import com.example.brainhealth.databinding.ActivityHistoryBinding
 
@@ -17,6 +19,7 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         tabs()
+        setupAction()
     }
 
     private fun tabs() {
@@ -28,5 +31,12 @@ class HistoryActivity : AppCompatActivity() {
         binding.vpHistory.adapter = adapter
         binding.tabHistory.setupWithViewPager(binding.vpHistory)
 
+    }
+
+    private fun setupAction() {
+        binding.mainButton.setOnClickListener {
+            val intent = Intent(this@HistoryActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
