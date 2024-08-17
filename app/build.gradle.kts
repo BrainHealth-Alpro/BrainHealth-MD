@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.brainhealth"
+    namespace = "com.brainhealth"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.brainhealth"
+        applicationId = "com.brainhealth"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
