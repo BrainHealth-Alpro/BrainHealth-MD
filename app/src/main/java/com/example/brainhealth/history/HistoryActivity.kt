@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.brainhealth.MainActivity
+import com.example.brainhealth.HomeActivity
 import com.example.brainhealth.adapter.ViewPagerAdapter
 import com.example.brainhealth.databinding.ActivityHistoryBinding
 
@@ -35,7 +35,7 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.mainButton.setOnClickListener {
-            val intent = Intent(this@HistoryActivity, MainActivity::class.java)
+            val intent = Intent(this@HistoryActivity, HomeActivity::class.java)
             startActivity(intent)
         }
     }

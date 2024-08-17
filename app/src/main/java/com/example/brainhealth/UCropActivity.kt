@@ -29,7 +29,7 @@ class UCropActivity : AppCompatActivity() {
         }
 
         if (intent.extras != null) {
-            sourceUri = intent.getStringExtra(MainActivity.IMAGE_DATA).toString()
+            sourceUri = intent.getStringExtra(HomeActivity.IMAGE_DATA).toString()
             uri = Uri.parse(sourceUri)
         }
 

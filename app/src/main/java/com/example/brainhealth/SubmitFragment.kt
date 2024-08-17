@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.brainhealth.MainActivity.Companion.IMAGE_DATA
+import com.example.brainhealth.HomeActivity.Companion.IMAGE_DATA
 import com.example.brainhealth.Utils.reduceFile
 import com.example.brainhealth.Utils.uriToFile
 import com.example.brainhealth.databinding.FragmentSubmitBinding

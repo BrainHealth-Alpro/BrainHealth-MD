@@ -16,10 +16,22 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="sehat">Sehat</string>
     <string name="tidak_sehat">Tidak Sehat</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">Loading</string>
     <string name="result_healthy"><![CDATA[<b>Sehat!</b> Tidak ada tumor terdeteksi.]]></string>
     <string name="result_disease"><![CDATA[<b>Tidak sehat.</b> Terdapat tumor jenis %1$s terdeteksi. Hubungi rumah sakit terdekat untuk penanganan lebih lanjut.]]></string>
     <string name="activity_main_fragment_submit_button_crop">Crop</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_history">Riwayat</string>
+    <string name="title_chat">Chat</string>
+    <string name="brain_health">Brain Health</string>
+    <string name="brain_health_desc">Merupakan aplikasi yang dapat mendeteksi tumor otak dari citra MRI. Kecerdasan buatan kami dapat menolong Anda untuk memberikan diagnosis cukup dengan menggunggah citra MRI Anda!</string>
+    <string name="continue_text">Selanjutnya</string>
+    <string name="onboarding2_header">Jangan ragu untuk meminta bantuan!</string>
+    <string name="onboarding2_desc">Dilengkapi dengan fitur chat yang dapat menghubungi pakar penyakit otak terdekat berdasarkan lokasi dan alamat Anda. Semoga Anda sehat selalu!</string>
+    <string name="choose_your_role">Pilih Peran Anda</string>
+    <string name="select_text">Silakan klik untuk mendaftar sebagai</string>
+    <string name="dokter">Dokter</string>
+    <string name="pasien">Pasien</string>
 </resources>
