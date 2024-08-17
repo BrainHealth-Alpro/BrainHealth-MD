@@ -60,6 +60,7 @@ class RegisterActivity : AppCompatActivity() {
                 val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                 intent.putExtra(LoginActivity.ROLE_ID, 2)
                 startActivity(intent)
+                finish()
             }
         }
     }

@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             if (!user.isLogin) {
                 val intent = Intent(this, OnboardingActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         }
     }
