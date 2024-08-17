@@ -46,14 +46,15 @@
         android:layout_marginTop="25dp"
         app:layout_constraintWidth_percent="0.85"
         app:layout_constraintHeight_percent="0.45" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_activity_fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/home_activity_white_card_rounded_all_corners"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.43"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/home_activity_white_card_rounded_all_corners"
-        app:layout_constraintWidth_percent="0.7"
-        app:layout_constraintHeight_percent="0.4"
-        />
+        app:layout_constraintWidth_percent="0.8" />
 </androidx.constraintlayout.widget.ConstraintLayout>

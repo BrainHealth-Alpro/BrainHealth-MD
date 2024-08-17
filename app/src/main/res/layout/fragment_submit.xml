@@ -32,6 +32,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499" />
 
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/imgChosen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/app_name" />
+
+
     <ImageView
         android:id="@+id/imgChosen"
         android:layout_width="wrap_content"

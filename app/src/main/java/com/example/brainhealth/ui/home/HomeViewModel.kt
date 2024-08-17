@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.brainhealth.di.PredictResponse
+import com.example.brainhealth.di.db.PredictResponse
 import com.example.brainhealth.di.repository.ProgramRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

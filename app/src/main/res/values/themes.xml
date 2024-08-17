@@ -1,14 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.BrainHealth" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.BrainHealth" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorOnPrimary">@color/baby_blue</item>
+        <item name="colorPrimaryContainer">@color/baby_blue</item>
+        <item name="colorOnPrimaryContainer">@color/baby_blue</item>
     </style>
 
     <style name="Theme.BrainHealth" parent="Base.Theme.BrainHealth" />
     <style name="Theme.BrainHealth.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/custom_alert_dialog</item>
     </style>
     <style name="Theme.BrainHealth.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.BrainHealth.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

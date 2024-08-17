@@ -1,4 +1,4 @@
-package com.example.brainhealth.di
+package com.example.brainhealth.di.db
 
 data class PredictResponse(
     val result: String

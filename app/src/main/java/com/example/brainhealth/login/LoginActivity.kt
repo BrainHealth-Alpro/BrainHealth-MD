@@ -2,9 +2,11 @@ package com.example.brainhealth.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.brainhealth.R
@@ -37,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
         if (roleId == 1) {
             binding.tvWelcome.setText(R.string.welcome_text_dokter)
             binding.registerButton.visibility = View.GONE
+            binding.registerButton.text = Html.fromHtml(getString(R.string.register),  HtmlCompat.FROM_HTML_MODE_LEGACY)
         }
         else if (roleId == 2) { // Pasien
             binding.ivHeader.setImageResource(R.drawable.pasien)

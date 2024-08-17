@@ -6,8 +6,8 @@
     <string name="activity_main_fragment_submit_header"><b>File berhasil diunggah!</b></string>
     <string name="activity_main_fragment_result_header"><b>Hasil Anda adalah</b></string>
     <string name="activity_main_fragment_upload_button_drag_and_drop">Drag and drop</string>
-    <string name="activity_main_fragment_upload_button_browse">Browse</string>
-    <string name="activity_main_fragment_upload_button_camera">Kamera</string>
+    <string name="activity_main_fragment_upload_button_browse">Upload Gambar</string>
+    <string name="activity_main_fragment_upload_button_camera">Ambil Gambar</string>
     <string name="activity_main_fragment_submit_button_submit">Submit</string>
     <string name="activity_main_fragment_result_button_retake">Retake</string>
     <string name="history_keseluruhan">Semua</string>
@@ -50,4 +50,15 @@
     <string name="no_telp">Nomor Telepon</string>
     <string name="welcome_text_pasien">Selamat datang, Pasien!</string>
     <string name="welcome_text_dokter">Selamat datang, Dokter!</string>
+    <string name="activity_main_fragment_upload_button_dcm">Masukkan Link DICOM</string>
+    <string name="dr_mawar_haqqy">Dr. Mawar Haqqy</string>
+    <string name="halo_apa_ada_yang_bisa_saya_bantu">Halo! Apa ada yang bisa saya bantu?</string>
+    <string name="today">Today</string>
+    <string name="alert_title">Alert Title</string>
+    <string name="input_name_header">Masukkan nama pasien anda</string>
+    <string name="dcm_header">Masukkan link file dengan format .dcm</string>
+    <string name="title_edit_profile">Edit Profile</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="update_profile">Update Profile</string>
 </resources>

@@ -1,9 +1,13 @@
 package com.example.brainhealth.ui.history
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -45,9 +49,14 @@ class HistoryFragment : Fragment() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
 
-
+        setupView()
         return root
     }
+
+    private fun setupView() {
+        activity?.window?.statusBarColor = context?.let { ContextCompat.getColor(it, R.color.baby_blue) }!!
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

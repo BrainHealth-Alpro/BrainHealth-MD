@@ -1,5 +1,6 @@
 package com.example.brainhealth.ui.home
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,13 @@ class HomeFragment : Fragment() {
         ViewModelFactory.getInstance(requireActivity())
     }
 
+
+    companion object {
+        const val IMAGE_DATA = "imageData"
+    }
+    private var res = ""
+    private var currentImageUri: Uri? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +40,7 @@ class HomeFragment : Fragment() {
 
         val uploadFragment = UploadFragment()
 
-        parentFragmentManager.beginTransaction().apply {
+        activity?.supportFragmentManager?.beginTransaction()?.apply {
             replace(R.id.main_activity_fragment_container, uploadFragment)
             commit()
         }

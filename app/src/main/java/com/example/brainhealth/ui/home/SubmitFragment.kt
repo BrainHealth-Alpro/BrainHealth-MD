@@ -48,12 +48,14 @@ class SubmitFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val uri = arguments?.getString("URI")
+        val username = arguments?.getString("username")
+        // TODO: USERNAME POST
         currentImageUri = Uri.parse(uri)
         binding.imgChosen.setImageURI(currentImageUri)
-
+        binding.tvUsername.text = username
         binding.btnCrop.setOnClickListener {
             val intent = Intent(requireActivity(), UCropActivity::class.java)
-            intent.putExtra(IMAGE_DATA, currentImageUri.toString())
+            intent.putExtra(HomeFragment.IMAGE_DATA, currentImageUri.toString())
             launcherCropImage.launch(intent)
         }
 

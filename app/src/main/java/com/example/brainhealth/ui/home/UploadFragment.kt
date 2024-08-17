@@ -6,8 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,6 +32,7 @@ class UploadFragment : Fragment() {
     }
 
     private var currentImageUri: Uri? = null
+    private var username: String = ""
 
     private fun checkPermission(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(
@@ -50,6 +55,10 @@ class UploadFragment : Fragment() {
 
         binding.btnCamera.setOnClickListener {
             startCamera()
+        }
+
+        binding.btnDcm.setOnClickListener {
+            startDcm()
         }
 
         return root
@@ -83,6 +92,7 @@ class UploadFragment : Fragment() {
                 val submitFragment = SubmitFragment().apply {
                     arguments = Bundle().apply {
                         putString("URI", it.toString())
+                        putString("username", username)
                     }
                 }
                 activity?.supportFragmentManager?.beginTransaction()?.apply {
@@ -103,12 +113,32 @@ class UploadFragment : Fragment() {
         launcherIntentCamera.launch(currentImageUri)
     }
 
+    private fun startDcm() {
+        val builder = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog)
+        val dialogView = layoutInflater.inflate(R.layout.custom_alert_dialog, null)
+        val title = dialogView.findViewById<TextView>(R.id.titleDialog)
+        title.text = getString(R.string.dcm_header)
+        val input = dialogView.findViewById<EditText>(R.id.editText).text
+        val button = dialogView.findViewById<Button>(R.id.submit_button)
+        builder.setView(dialogView)
+        val dialog = builder.create()
+
+        dialog.show()
+
+        button.setOnClickListener {
+            val link = input.toString()
+
+            dialog.dismiss()
+        }
+    }
+
     private val launcherGallery = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
-            viewModel.setCurrentImageUri(uri)
+            showDialog(uri)
 //            showImage()
+
         }
     }
 
@@ -125,5 +155,25 @@ class UploadFragment : Fragment() {
 //            binding.previewImage.setImageURI(it)
 //        }
 //    }
+
+    private fun showDialog(uri: Uri) {
+        val builder = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog)
+        val dialogView = layoutInflater.inflate(R.layout.custom_alert_dialog, null)
+        val title = dialogView.findViewById<TextView>(R.id.titleDialog)
+        title.text = getString(R.string.input_name_header)
+        val input = dialogView.findViewById<EditText>(R.id.editText).text
+        val button = dialogView.findViewById<Button>(R.id.submit_button)
+        builder.setView(dialogView)
+        val dialog = builder.create()
+
+        dialog.show()
+
+        button.setOnClickListener {
+            username = input.toString()
+            viewModel.setCurrentImageUri(uri)
+            dialog.dismiss()
+        }
+
+    }
 
 }

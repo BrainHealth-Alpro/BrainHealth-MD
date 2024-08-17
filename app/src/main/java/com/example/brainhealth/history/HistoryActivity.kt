@@ -18,7 +18,6 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         tabs()
-        setupAction()
     }
 
     private fun tabs() {
@@ -32,10 +31,4 @@ class HistoryActivity : AppCompatActivity() {
 
     }
 
-    private fun setupAction() {
-        binding.mainButton.setOnClickListener {
-            val intent = Intent(this@HistoryActivity, HomeActivity::class.java)
-            startActivity(intent)
-        }
-    }
 }

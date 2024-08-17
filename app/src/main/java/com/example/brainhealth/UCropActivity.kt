@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.brainhealth.ui.home.HomeFragment
 import com.yalantis.ucrop.UCrop
 import java.io.File
 import java.lang.StringBuilder
@@ -29,7 +30,7 @@ class UCropActivity : AppCompatActivity() {
         }
 
         if (intent.extras != null) {
-            sourceUri = intent.getStringExtra(HomeActivity.IMAGE_DATA).toString()
+            sourceUri = intent.getStringExtra(HomeFragment.IMAGE_DATA).toString()
             uri = Uri.parse(sourceUri)
         }
 

@@ -28,6 +28,8 @@ class DetailHistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        binding = FragmentDetailHistoryBinding.inflate(layoutInflater)
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvHistory.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
