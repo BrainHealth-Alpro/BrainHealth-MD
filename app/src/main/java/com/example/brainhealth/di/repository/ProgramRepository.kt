@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class ProgramRepository private constructor(
@@ -50,12 +51,14 @@ class ProgramRepository private constructor(
     }
     suspend fun postResult(file: File, userId: Int, patientName: String) : PredictResponse {
         val resultFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val userIdBody = userId.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val patientNameBody = patientName.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val multipartBody = MultipartBody.Part.createFormData(
             "file",
             file.name,
             resultFile
         )
-        return apiService.postResult(multipartBody, userId, patientName)
+        return apiService.postResult(multipartBody, userIdBody, patientNameBody)
     }
 
     suspend fun postResultLink(link: String, userId: Int, patientName: String) : PredictResponse {

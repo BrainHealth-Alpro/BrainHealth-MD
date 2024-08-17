@@ -11,6 +11,7 @@ import com.example.brainhealth.di.db.RegisterRequest
 import com.example.brainhealth.di.db.RegisterResponse
 import com.example.brainhealth.di.db.TokenResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -67,8 +68,8 @@ interface ApiService {
     @POST("predict")
     suspend fun postResult(
         @Part file: MultipartBody.Part,
-        @Part("user_id") userId: Int,
-        @Part("nama_pasien") patientName: String,
+        @Part("user_id") userId: RequestBody,
+        @Part("nama_pasien") patientName: RequestBody,
     ): PredictResponse
 
     @Headers("Content-Type: application/json")

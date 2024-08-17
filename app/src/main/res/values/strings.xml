@@ -42,7 +42,7 @@
     <string name="password_can_t_be_lower_than_8_characters">Minimal 8 karakter!</string>
     <string name="welcome_desc">Silakan melengkapi data ini untuk masuk ke akunmu.</string>
     <string name="login">Masuk</string>
-    <string name="register"><![CDATA[Belum memiliki Akun? <b>Dafter</b>]]></string>
+    <string name="register"><![CDATA[Belum memiliki Akun? <b>Daftar</b>]]></string>
     <string name="make_account">Buat Akun</string>
     <string name="welcome_to_brain_health">Welcome to Brain Health</string>
     <string name="welcome_desc_register">Silakan membuat akun baru untuk mengakses aplikasi ini.</string>
@@ -73,5 +73,6 @@
     <string name="logout">Logout</string>
     <string name="isi">Isi</string>
     <string name="unknown">unknown</string>
+    <string name="menu_refresh">Refresh</string>
 
 </resources>

@@ -40,7 +40,8 @@ class HistoryAdapter: ListAdapter<HistoryItem, HistoryAdapter.MyViewHolder>(DIFF
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(item: HistoryItem) {
             Glide.with(itemView.context).load(convertURL(item.gambarPath)).into(binding.imgHistory)
-            binding.tvName.text = item.namaLengkapPasien
+            val tempName = trimQuotes(item.namaLengkapPasien)
+            binding.tvName.text = tempName
             if (binding.tvName.text == "") binding.tvName.text = "unknown"
             binding.tvResult.text = Html.fromHtml("<b>Hasil:</b> ${item.hasil}",  HtmlCompat.FROM_HTML_MODE_LEGACY)
             binding.tvDesc.text = Html.fromHtml("<b>Jenis tumor:</b> ${if (item.jenisTumor == "notumor") "-" else item.jenisTumor}",  HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -53,6 +54,17 @@ class HistoryAdapter: ListAdapter<HistoryItem, HistoryAdapter.MyViewHolder>(DIFF
                 val intent = Intent(itemView.context, RecommendationActivity::class.java)
                 itemView.context.startActivity(intent)
             }
+        }
+
+        fun trimQuotes(input: String): String {
+            val startIndex = input.indexOf("\"") + 1 // find the index after the first "
+            val endIndex = input.indexOf("\"", startIndex) // find the index of the next "
+
+            if (startIndex != -1 && endIndex != -1) {
+                val substring = input.substring(startIndex, endIndex)
+                return substring // Output: This is a substring
+            }
+            return input
         }
 
         fun convertURL(localPath: String): String {

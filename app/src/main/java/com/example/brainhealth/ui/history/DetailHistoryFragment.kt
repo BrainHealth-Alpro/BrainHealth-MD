@@ -5,8 +5,15 @@ import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brainhealth.R
@@ -31,6 +38,7 @@ class DetailHistoryFragment : Fragment() {
     }
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,13 +57,17 @@ class DetailHistoryFragment : Fragment() {
         val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
         binding.rvHistory.addItemDecoration(itemDecoration)
 
+        observe()
+
         return root
     }
+    override fun onResume() {
+        super.onResume()
+        observe()
+    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-
+    private fun observe() {
         viewModel.isDanger.observe(requireActivity()) {
             if (it) {
                 binding.tvWarning.visibility = View.VISIBLE
@@ -63,7 +75,6 @@ class DetailHistoryFragment : Fragment() {
                 binding.tvWarning.visibility = View.GONE
             }
         }
-
         if (position == 1) {
             viewModel.getSession().observe(requireActivity()) { user ->
                 if (user != null) {
