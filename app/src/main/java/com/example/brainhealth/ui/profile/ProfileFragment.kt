@@ -24,11 +24,10 @@ import java.util.Locale
 
 class ProfileFragment : Fragment() {
 
-    private var _binding: FragmentProfileBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentProfileBinding
 
     private var currentImageUri: Uri? = null
     private var birthPlace = ""
@@ -45,14 +44,17 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        binding = FragmentProfileBinding.inflate(layoutInflater)
         val root: View = binding.root
         viewModel.getSession().observe(requireActivity()) { user ->
             viewModel.getProfile(user.id)
         }
 
         viewModel.profile.observe(requireActivity()) {
-            setupAssets(it)
+            if (it != null) {
+                setupAssets(it)
+            }
+
         }
 
         binding.imageContainer.setOnClickListener{
@@ -73,6 +75,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupAssets(data: ProfileResponse) {
+        if (!isAdded) return
         setupData(data)
         setupBirthPlace(data.tempatLahir)
         setupBirthDate(data.tanggalLahir)
@@ -99,6 +102,7 @@ class ProfileFragment : Fragment() {
 
 
     private fun setupBirthPlace(tempatLahir: String?) {
+
         val items = viewModel.indonesianCities
         val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_dropdown_item, items)
         binding.birthPlace.adapter = adapter
@@ -174,8 +178,4 @@ class ProfileFragment : Fragment() {
         //...
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
