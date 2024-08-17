@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">BrainHealth</string>
+    <string name="activity_main_header"><b>Unggah hasil <i>scan MRI</i> dan cek kesehatan otak Anda sekarang juga!</b></string>
+    <string name="activity_main_fragment_upload_header"><b>Unggah file</b></string>
+    <string name="activity_main_fragment_camera_header"><b>Ambil Gambar</b></string>
+    <string name="activity_main_fragment_submit_header"><b>File berhasil diunggah!</b></string>
+    <string name="activity_main_fragment_result_header"><b>Hasil Anda adalah</b></string>
+    <string name="activity_main_fragment_upload_button_drag_and_drop">Drag and drop</string>
+    <string name="activity_main_fragment_upload_button_browse">Browse</string>
+    <string name="activity_main_fragment_upload_button_camera">Kamera</string>
+    <string name="activity_main_fragment_submit_button_submit">Submit</string>
+    <string name="activity_main_fragment_result_button_retake">Retake</string>
+    <string name="history_keseluruhan">Semua</string>
+    <string name="title_activity_history">HistoryActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="sehat">Sehat</string>
+    <string name="tidak_sehat">Tidak Sehat</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Loading</string>
+    <string name="result_healthy"><![CDATA[<b>Sehat!</b> Tidak ada tumor terdeteksi.]]></string>
+    <string name="result_disease"><![CDATA[<b>Tidak sehat.</b> Terdapat tumor jenis %1$s terdeteksi. Hubungi rumah sakit terdekat untuk penanganan lebih lanjut.]]></string>
+    <string name="activity_main_fragment_submit_button_crop">Crop</string>
+</resources>
