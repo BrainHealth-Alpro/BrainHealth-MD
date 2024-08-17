@@ -20,6 +20,8 @@ class Onboarding2Activity : AppCompatActivity() {
         binding = ActivityOnboarding2Binding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+
+        supportActionBar?.hide()
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

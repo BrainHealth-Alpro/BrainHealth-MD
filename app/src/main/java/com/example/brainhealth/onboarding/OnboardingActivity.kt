@@ -25,6 +25,8 @@ class OnboardingActivity : AppCompatActivity() {
             insets
         }
 
+        supportActionBar?.hide()
+
         binding.continueButton.setOnClickListener {
             val intent = Intent(this@OnboardingActivity, Onboarding2Activity::class.java)
             startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this as Activity).toBundle())

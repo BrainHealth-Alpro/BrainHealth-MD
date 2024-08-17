@@ -33,6 +33,8 @@ class RegisterActivity : AppCompatActivity() {
             insets
         }
 
+        supportActionBar?.hide()
+
         observe()
     }
 

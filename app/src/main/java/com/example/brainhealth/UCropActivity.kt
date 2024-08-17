@@ -29,6 +29,8 @@ class UCropActivity : AppCompatActivity() {
             insets
         }
 
+        supportActionBar?.hide()
+
         if (intent.extras != null) {
             sourceUri = intent.getStringExtra(HomeFragment.IMAGE_DATA).toString()
             uri = Uri.parse(sourceUri)

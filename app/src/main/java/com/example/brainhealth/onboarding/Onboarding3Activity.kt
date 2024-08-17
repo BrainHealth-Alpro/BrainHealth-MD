@@ -19,6 +19,8 @@ class Onboarding3Activity : AppCompatActivity() {
         binding = ActivityOnboarding3Binding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+
+        supportActionBar?.hide()
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

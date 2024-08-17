@@ -40,6 +40,8 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        supportActionBar?.hide()
+
         setupView()
         observe()
     }
