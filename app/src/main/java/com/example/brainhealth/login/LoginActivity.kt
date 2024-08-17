@@ -1,6 +1,8 @@
 package com.example.brainhealth.login
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,6 +13,10 @@ import com.example.brainhealth.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+
+    companion object {
+        const val ROLE_ID = "roleId"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,6 +28,19 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        setupView()
 
+    }
+
+    private fun setupView() {
+        val roleId = intent.getIntExtra(ROLE_ID, 1)
+        if (roleId == 1) {
+            binding.tvWelcome.setText(R.string.welcome_text_dokter)
+            binding.registerButton.visibility = View.GONE
+        }
+        else if (roleId == 2) { // Pasien
+            binding.ivHeader.setImageResource(R.drawable.pasien)
+            binding.tvWelcome.setText(R.string.welcome_text_pasien)
+        }
     }
 }

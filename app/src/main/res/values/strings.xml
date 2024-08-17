@@ -48,4 +48,6 @@
     <string name="welcome_desc_register">Silakan membuat akun baru untuk mengakses aplikasi ini.</string>
     <string name="full_name">Nama Lengkap</string>
     <string name="no_telp">Nomor Telepon</string>
+    <string name="welcome_text_pasien">Selamat datang, Pasien!</string>
+    <string name="welcome_text_dokter">Selamat datang, Dokter!</string>
 </resources>
