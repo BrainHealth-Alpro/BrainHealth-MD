@@ -30,6 +30,8 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         const val ROLE_ID = "roleId"
     }
+
+    private var roleId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -49,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        val roleId = intent.getIntExtra(ROLE_ID, 1)
+        roleId = intent.getIntExtra(ROLE_ID, 1)
         if (roleId == 1) {
             binding.tvWelcome.setText(R.string.welcome_text_dokter)
             binding.registerButton.visibility = View.GONE
@@ -65,7 +67,8 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
-            viewModel.login(email, password)
+            if (roleId == 1) viewModel.login(email, password, "dokter")
+            else if (roleId == 2) viewModel.login(email, password, "pasien")
         }
 
         binding.registerButton.setOnClickListener {
@@ -79,12 +82,8 @@ class LoginActivity : AppCompatActivity() {
             showLoading(it)
         }
 
-        viewModel.isError.observe(this) {
-            if (it == true) {
-                viewModel.message.observe(this) { msg ->
-                    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-                }
-            }
+        viewModel.message.observe(this) { msg ->
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
 
         viewModel.loginResponse.observe(this) {

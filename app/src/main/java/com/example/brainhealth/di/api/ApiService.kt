@@ -3,6 +3,7 @@ package com.example.brainhealth.di.api
 import com.example.brainhealth.di.db.HistoryResponse
 import com.example.brainhealth.di.db.LoginRequest
 import com.example.brainhealth.di.db.LoginResponse
+import com.example.brainhealth.di.db.PredictLinkRequest
 import com.example.brainhealth.di.db.PredictResponse
 import com.example.brainhealth.di.db.ProfileResponse
 import com.example.brainhealth.di.db.ProfileUpdateResponse
@@ -22,32 +23,29 @@ import retrofit2.http.Part
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("csrf")
-    suspend fun getToken(): TokenResponse
-
+//    @GET("csrf")
+//    suspend fun getToken(): TokenResponse
 
     @POST("register")
     suspend fun register(
-        @Header("X-CSRFToken") token: String,
         @Body body: RegisterRequest
     ) : RegisterResponse
 
     @POST("login")
     suspend fun login(
-        @Header("X-CSRFToken") token: String,
         @Body body: LoginRequest
     ) : LoginResponse
 
+    @Headers("Content-Type: application/json")
     @GET("history")
     suspend fun getHistories(
-        @Header("X-CSRFToken") token: String,
         @Query("user_id") userId: Int
     ) : HistoryResponse
 
     @FormUrlEncoded
+    @Headers("Content-Type: application/json")
     @POST("profile")
     suspend fun updateProfile(
-        @Header("X-CSRFToken") token: String,
         @Field("id") id: Int,
         @Field("nama_lengkap") fullName: String,
         @Field("email") email: String,
@@ -59,9 +57,9 @@ interface ApiService {
         @Field("tipe") type: String
     ) : ProfileUpdateResponse
 
+    @Headers("Content-Type: application/json")
     @GET("profile")
     suspend fun getProfile(
-        @Header("X-CSRFToken") token: String,
         @Query("user_id") userId: Int
     ) : ProfileResponse
 
@@ -73,11 +71,9 @@ interface ApiService {
         @Part("nama_pasien") patientName: String,
     ): PredictResponse
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
     @POST("predict/batchLink")
     suspend fun postResultLink(
-        @Field("link") link: String,
-        @Field("user_id") userId: Int,
-        @Field("nama_pasien") patientName: String,
+        @Body body: PredictLinkRequest
     ): PredictResponse
 }

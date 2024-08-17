@@ -1,5 +1,6 @@
 package com.example.brainhealth.ui.history
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,22 +10,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brainhealth.R
+import com.example.brainhealth.ViewModelFactory
 import com.example.brainhealth.adapter.HistoryAdapter
 import com.example.brainhealth.databinding.FragmentDetailHistoryBinding
 import com.example.brainhealth.di.db.HistoryItem
+import com.example.brainhealth.onboarding.OnboardingActivity
+import kotlin.properties.Delegates
 
 class DetailHistoryFragment : Fragment() {
 
-    private var position: Int = 0
-    private lateinit var username: String
+    private var position = 0
     private lateinit var binding: FragmentDetailHistoryBinding
     companion object {
         const val ARG_POSITION = "position"
-        const val ARG_USERNAME = "username"
     }
 
 
-    private val viewModel: DetailHistoryViewModel by viewModels()
+    private val viewModel by viewModels<DetailHistoryViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +37,12 @@ class DetailHistoryFragment : Fragment() {
     ): View {
 
         binding = FragmentDetailHistoryBinding.inflate(layoutInflater)
+
+        arguments?.let {
+            position = it.getInt(ARG_POSITION)
+        }
+
+
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvHistory.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
@@ -42,17 +53,63 @@ class DetailHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            position = it.getInt(ARG_POSITION)
-            username = it.getString(ARG_USERNAME).toString()
+
+
+        viewModel.isDanger.observe(requireActivity()) {
+            if (it) {
+                binding.tvWarning.visibility = View.VISIBLE
+            } else {
+                binding.tvWarning.visibility = View.GONE
+            }
         }
 
         if (position == 1) {
-            // TODO: All History
+            viewModel.getSession().observe(requireActivity()) { user ->
+                if (user != null) {
+                    viewModel.getHistory(user.id)
+                } else {
+                    val intent = Intent(requireActivity(), OnboardingActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+            viewModel.listHistory.observe(requireActivity()) {
+               setData(it)
+            }
+            viewModel.isLoading.observe(requireActivity()) {
+                showLoading(it)
+            }
+
         } else if (position == 2) {
-            // TODO: Sehat History
+            viewModel.getSession().observe(requireActivity()) { user ->
+                if (user != null) {
+                    viewModel.getHistorySehat(user.id)
+                } else {
+                    val intent = Intent(requireActivity(), OnboardingActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            viewModel.listHistory.observe(requireActivity()) {
+                setData(it)
+            }
+            viewModel.isLoading.observe(requireActivity()) {
+                showLoading(it)
+            }
         } else {
-            // TODO: Tidak Sehat History
+            viewModel.getSession().observe(requireActivity()) { user ->
+                if (user != null) {
+                    viewModel.getHistoryTidakSehat(user.id)
+                } else {
+                    val intent = Intent(requireActivity(), OnboardingActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            viewModel.listHistory.observe(requireActivity()) {
+                setData(it)
+            }
+            viewModel.isLoading.observe(requireActivity()) {
+                showLoading(it)
+            }
         }
     }
 

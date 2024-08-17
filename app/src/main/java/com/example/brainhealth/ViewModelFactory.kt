@@ -31,6 +31,9 @@ class ViewModelFactory(private val repository: ProgramRepository) : ViewModelPro
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(repository) as T
             }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(repository) as T
+            }
             modelClass.isAssignableFrom(DetailHistoryViewModel::class.java) -> {
                 DetailHistoryViewModel(repository) as T
             }

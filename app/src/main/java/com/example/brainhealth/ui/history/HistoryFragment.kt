@@ -1,18 +1,18 @@
 package com.example.brainhealth.ui.history
 
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.brainhealth.R
+import com.example.brainhealth.ViewModelFactory
 import com.example.brainhealth.databinding.FragmentHistoryBinding
+import com.example.brainhealth.onboarding.OnboardingActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -23,8 +23,12 @@ class HistoryFragment : Fragment() {
         )
     }
 
-    private val username: String = ""
     private var _binding: FragmentHistoryBinding? = null
+
+    private val viewModel by viewModels<HistoryViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
+    }
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -35,13 +39,12 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val historyViewModel =
-            ViewModelProvider(this).get(HistoryViewModel::class.java)
 
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(), username.toString())
+
+        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(),)
         val viewPager: ViewPager2 = binding.vpHistory
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabHistory

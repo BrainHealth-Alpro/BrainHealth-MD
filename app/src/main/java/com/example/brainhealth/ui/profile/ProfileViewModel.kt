@@ -7,6 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brainhealth.di.db.ErrorResponse
 import com.example.brainhealth.di.db.ProfileResponse
+import com.example.brainhealth.di.db.SingleErrorResponse
 import com.example.brainhealth.di.db.UserModel
 import com.example.brainhealth.di.repository.ProgramRepository
 import com.google.gson.Gson
@@ -45,12 +46,20 @@ class ProfileViewModel(private val repository: ProgramRepository) : ViewModel() 
                 _profile.value = response
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorBody = Gson().fromJson(jsonInString, SingleErrorResponse::class.java)
                 val errorMessage = errorBody.message
             } finally {
                 _isLoading.value = false
             }
         }
 
+    }
+
+    fun logout() {
+        _isLoading.value = true
+        viewModelScope.launch {
+            repository.logout()
+            _isLoading.value = false
+        }
     }
 }

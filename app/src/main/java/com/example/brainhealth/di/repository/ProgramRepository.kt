@@ -5,10 +5,12 @@ import com.example.brainhealth.di.api.ApiService
 import com.example.brainhealth.di.db.HistoryResponse
 import com.example.brainhealth.di.db.LoginRequest
 import com.example.brainhealth.di.db.LoginResponse
+import com.example.brainhealth.di.db.PredictLinkRequest
 import com.example.brainhealth.di.db.ProfileResponse
 import com.example.brainhealth.di.db.RegisterRequest
 import com.example.brainhealth.di.db.RegisterResponse
 import com.example.brainhealth.di.db.TokenManager
+import com.example.brainhealth.di.db.TokenManager.getToken
 import com.example.brainhealth.di.db.UserModel
 import com.example.brainhealth.di.pref.UserPreference
 import kotlinx.coroutines.flow.Flow
@@ -22,23 +24,21 @@ class ProgramRepository private constructor(
     private val apiService: ApiService
 ){
 
-    suspend fun getToken() = apiService.getToken()
+//    suspend fun getToken() = apiService.getToken()
 
     suspend fun register(fullName: String, email: String, phoneNum: String, password: String, type: String) : RegisterResponse {
-        val token = TokenManager.getToken() ?: ""
+
         val body = RegisterRequest(fullName, email, phoneNum, password, type)
-        return apiService.register(token, body)
+        return apiService.register(body)
     }
 
     suspend fun login(email: String, password: String) : LoginResponse {
-        val token = TokenManager.getToken() ?: ""
         val body = LoginRequest(email, password)
-        return apiService.login(token, body)
+        return apiService.login(body)
     }
 
     suspend fun getHistories(userId: Int): HistoryResponse {
-        val token = TokenManager.getToken() ?: ""
-        return apiService.getHistories(token, userId)
+        return apiService.getHistories(userId)
     }
 
 //    suspend fun updateProfile(id: Int, fullName: String, email: String, phoneNum: String, profileImage: File, birthPlace: String, birthDate: String, password: String, type: String) : ProfileUpdateResponse {
@@ -46,8 +46,7 @@ class ProgramRepository private constructor(
 //    }
 
     suspend fun getProfile(userId: Int) : ProfileResponse {
-        val token = TokenManager.getToken() ?: ""
-        return apiService.getProfile(token, userId)
+        return apiService.getProfile(userId)
     }
     suspend fun postResult(file: File, userId: Int, patientName: String) : PredictResponse {
         val resultFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
@@ -60,7 +59,8 @@ class ProgramRepository private constructor(
     }
 
     suspend fun postResultLink(link: String, userId: Int, patientName: String) : PredictResponse {
-        return apiService.postResultLink(link, userId, patientName)
+        val body = PredictLinkRequest(link, patientName, userId)
+        return apiService.postResultLink(body)
     }
 
     suspend fun saveSession(user: UserModel) {

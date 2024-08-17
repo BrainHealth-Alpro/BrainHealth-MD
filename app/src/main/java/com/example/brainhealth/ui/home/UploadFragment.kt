@@ -1,5 +1,6 @@
 package com.example.brainhealth.ui.home
 
+import android.app.ProgressDialog
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build.VERSION_CODES.S
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -34,6 +36,7 @@ class UploadFragment : Fragment() {
 
     private var currentImageUri: Uri? = null
     private var userId: Int = -1
+    private var type: String = ""
     private var username: String = ""
 
     private fun checkPermission(permission: String): Boolean {
@@ -53,6 +56,8 @@ class UploadFragment : Fragment() {
 
         viewModel.getSession().observe(requireActivity()) { user ->
             userId = user.id
+            type = user.type
+            username = user.name
         }
 
 
@@ -110,6 +115,10 @@ class UploadFragment : Fragment() {
                 }
             }
         }
+
+        viewModel.isLoading.observe(requireActivity()) {
+            showLoading(it)
+        }
     }
 
     private fun startGallery() {
@@ -136,30 +145,69 @@ class UploadFragment : Fragment() {
         button.setOnClickListener {
             val link = input.toString()
             dialog.dismiss()
-            val builder2 = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog)
-            val dialogView2 = layoutInflater.inflate(R.layout.custom_alert_dialog, null)
-            val title2 = dialogView2.findViewById<TextView>(R.id.titleDialog)
-            title2.text = getString(R.string.input_name_header)
-            val input2 = dialogView2.findViewById<EditText>(R.id.editText).text
-            val button2 = dialogView2.findViewById<Button>(R.id.submit_button)
-            builder.setView(dialogView)
-            val dialog2 = builder.create()
-
-            dialog.show()
-
-            button.setOnClickListener {
-                username = input.toString()
+            if (type == "pasien") {
                 viewModel.uploadLink(link, userId, username)
-                dialog2.dismiss()
+                viewModel.uploadResponse.observe(requireActivity()) {
+                    if (it != null) {
+                        viewModel.setUploadResponseNull() // Bisa dihapus jika tidak perlu, hanya agar bisa diback
+                        val res = it.result
+                        val resultFragment = ResultFragment().apply {
+                            arguments = Bundle().apply {
+                                putString("RESULT", res)
+                            }
+                        }
+                        activity?.supportFragmentManager?.beginTransaction()?.apply {
+                            replace(R.id.main_activity_fragment_container, resultFragment)
+                            addToBackStack(null) // Optional: add to back stack if you want to navigate back
+                            commit()
+                        }
+                    }
+                }
+            } else {
+                val builder2 = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog)
+                val dialogView2 = layoutInflater.inflate(R.layout.custom_alert_dialog, null)
+                val title2 = dialogView2.findViewById<TextView>(R.id.titleDialog)
+                title2.text = getString(R.string.input_name_header)
+                val input2 = dialogView2.findViewById<EditText>(R.id.editText).text
+                val button2 = dialogView2.findViewById<Button>(R.id.submit_button)
+                builder2.setView(dialogView2) // Corrected this line
+                val dialog2 = builder2.create()
+
+                dialog2.show()
+
+                button2.setOnClickListener {
+                    username = input2.toString()
+                    viewModel.uploadLink(link, userId, username)
+                    viewModel.uploadResponse.observe(requireActivity()) {
+                        if (it != null) {
+                            viewModel.setUploadResponseNull() // Bisa dihapus jika tidak perlu, hanya agar bisa diback
+                            val res = it.result
+                            val resultFragment = ResultFragment().apply {
+                                arguments = Bundle().apply {
+                                    putString("RESULT", res)
+                                }
+                            }
+                            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                                replace(R.id.main_activity_fragment_container, resultFragment)
+                                addToBackStack(null) // Optional: add to back stack if you want to navigate back
+                                commit()
+                            }
+                        }
+                    }
+                    dialog2.dismiss()
+                }
             }
         }
     }
+
 
     private val launcherGallery = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
-            showDialog(uri)
+            if (type == "dokter")
+                showDialog(uri)
+            else viewModel.setCurrentImageUri(uri)
 //            showImage()
 
         }
@@ -169,7 +217,12 @@ class UploadFragment : Fragment() {
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
-            currentImageUri?.let { viewModel.setCurrentImageUri(it) }
+
+            currentImageUri?.let {
+                if (type == "dokter")
+                    showDialog(it)
+                else viewModel.setCurrentImageUri(it)
+            }
         }
     }
 
@@ -197,6 +250,21 @@ class UploadFragment : Fragment() {
             dialog.dismiss()
         }
 
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            activity?.window?.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            binding.progressText.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
+        }
+        else {
+            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            binding.progressText.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
 }

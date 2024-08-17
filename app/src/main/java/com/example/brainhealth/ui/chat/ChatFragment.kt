@@ -41,7 +41,7 @@ class ChatFragment : Fragment() {
         setChatData(
             listOf(
                 ChatData(
-                    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fid.linkedin.com%2Fin%2Frosyhaqqy%2Fin&psig=AOvVaw2iNoq47so8oR-enG8nkb3J&ust=1720589428794000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJCZmp-dmYcDFQAAAAAdAAAAABAE",
+                    "https://media.licdn.com/dms/image/D5603AQFIi6DFvRlnig/profile-displayphoto-shrink_400_400/0/1681419555010?e=2147483647&v=beta&t=UvCNfGQXuL8sf0GGCLsilZ93GUnEuaHHFxsuWXWxmqU",
                     "Dr. Mawar Haqqy",
                     "Halo! Apa ada yang bisa saya bantu?",
                     "Today"

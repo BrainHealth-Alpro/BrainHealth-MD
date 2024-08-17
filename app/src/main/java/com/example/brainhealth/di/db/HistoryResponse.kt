@@ -26,7 +26,7 @@ data class HistoryItem(
 	val id: Int,
 
 	@field:SerializedName("jenis_tumor")
-	val jenisTumor: String,
+	val jenisTumor: String?,
 
 	@field:SerializedName("gambar")
 	val gambar: String

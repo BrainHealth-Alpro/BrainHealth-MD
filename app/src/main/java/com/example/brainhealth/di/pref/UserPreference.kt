@@ -21,6 +21,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         dataStore.edit { preferences ->
             preferences[EMAIL_KEY] = user.email
             preferences[ID_KEY] = user.id
+            preferences[NAME_KEY] = user.name
+            preferences[TYPE] = user.type
             preferences[IS_LOGIN_KEY] = true
         }
     }
@@ -30,6 +32,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
             UserModel(
                 preferences[EMAIL_KEY] ?: "",
                 preferences[ID_KEY] ?: 0,
+                preferences[NAME_KEY] ?: "",
+                preferences[TYPE] ?: "pasien",
                 preferences[IS_LOGIN_KEY] ?: false
             )
         }
@@ -47,6 +51,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
 
         private val EMAIL_KEY = stringPreferencesKey("email")
         private val ID_KEY = intPreferencesKey("id")
+        private val TYPE = stringPreferencesKey("type")
+        private val NAME_KEY = stringPreferencesKey("name")
         private val IS_LOGIN_KEY = booleanPreferencesKey("isLogin")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {

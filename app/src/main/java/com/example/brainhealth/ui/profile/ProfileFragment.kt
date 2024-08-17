@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.brainhealth.R
 import com.example.brainhealth.ViewModelFactory
 import com.example.brainhealth.databinding.FragmentProfileBinding
 import com.example.brainhealth.di.db.ProfileResponse
@@ -61,6 +62,9 @@ class ProfileFragment : Fragment() {
         binding.updateButton.setOnClickListener {
             save()
         }
+        binding.logoutButton.setOnClickListener {
+            viewModel.logout()
+        }
 
 
 
@@ -76,14 +80,19 @@ class ProfileFragment : Fragment() {
 
     private fun setupData(data: ProfileResponse) {
         with(binding) {
-            nameProfile.setText(data.namaLengkap, TextView.BufferType.EDITABLE)
-            emailProfile.setText(data.email, TextView.BufferType.EDITABLE)
-            notelpProfile.setText(data.nomorTelepon, TextView.BufferType.EDITABLE)
+//            nameProfile.setText(data.namaLengkap, TextView.BufferType.EDITABLE)
+//            emailProfile.setText(data.email, TextView.BufferType.EDITABLE)
+//            notelpProfile.setText(data.nomorTelepon, TextView.BufferType.EDITABLE)
+            nameProfile.text = data.namaLengkap
+            emailProfile.text = data.email
+            notelpProfile.text = data.nomorTelepon
         }
 
         if (data.fotoProfil != null) {
             currentImageUri = data.fotoProfil.toUri()
             showImage()
+        } else {
+            binding.imageProfile.setImageResource(R.drawable.pasien)
         }
 
     }

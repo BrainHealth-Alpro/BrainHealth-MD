@@ -9,11 +9,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.brainhealth.MainActivity
-import com.example.brainhealth.MainViewModel
-import com.example.brainhealth.R
 import com.example.brainhealth.ViewModelFactory
 import com.example.brainhealth.databinding.ActivityRegisterBinding
+import com.example.brainhealth.login.LoginActivity
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -54,18 +52,13 @@ class RegisterActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this) {
             showLoading(it)
         }
-
-        viewModel.isError.observe(this) {
-            if (it == true) {
-                viewModel.message.observe(this) { msg ->
-                    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-                }
-            }
+        viewModel.message.observe(this) { msg ->
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
-
         viewModel.registerResponse.observe(this) {
             if (it != null) {
-                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                intent.putExtra(LoginActivity.ROLE_ID, 2)
                 startActivity(intent)
             }
         }

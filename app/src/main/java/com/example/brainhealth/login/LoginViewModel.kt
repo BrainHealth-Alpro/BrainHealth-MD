@@ -26,7 +26,7 @@ class LoginViewModel(private val repository: ProgramRepository) : ViewModel() {
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> = _loginResponse
 
-    fun login(email: String, password: String) {
+    fun login(email: String, password: String, type: String) {
         _isLoading.value = true
         viewModelScope.launch {
             try {
@@ -36,6 +36,8 @@ class LoginViewModel(private val repository: ProgramRepository) : ViewModel() {
                     UserModel(
                         email,
                         result.id,
+                        "result.name",
+                        type,
                         true
                     )
                 )
@@ -47,7 +49,7 @@ class LoginViewModel(private val repository: ProgramRepository) : ViewModel() {
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message
+                val errorMessage = errorBody.message?.message
                 _message.value = errorMessage
                 _isLoading.value = false
                 _isError.value = true
