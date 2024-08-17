@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ProfileResponse(
 
-	@field:SerializedName("foto_profil")
+	@field:SerializedName("foto_profil_path")
 	val fotoProfil: String?,
 
 	@field:SerializedName("tempat_lahir")

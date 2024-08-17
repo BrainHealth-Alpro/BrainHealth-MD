@@ -48,7 +48,7 @@ class LoginViewModel(private val repository: ProgramRepository) : ViewModel() {
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message?.message
+                val errorMessage = errorBody.message
                 _message.value = errorMessage
                 _isLoading.value = false
                 _isError.value = true

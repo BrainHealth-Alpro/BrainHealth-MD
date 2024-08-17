@@ -3,6 +3,7 @@ package com.example.brainhealth.ui.profile
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +11,19 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.brainhealth.R
+import com.example.brainhealth.Utils
+import com.example.brainhealth.Utils.convertURL
+import com.example.brainhealth.Utils.dateFormattedYYYYMMDD
+import com.example.brainhealth.Utils.parseTanggalLahir
+import com.example.brainhealth.Utils.reduceFile
 import com.example.brainhealth.ViewModelFactory
 import com.example.brainhealth.databinding.FragmentProfileBinding
 import com.example.brainhealth.di.db.ProfileResponse
@@ -31,13 +39,16 @@ class ProfileFragment : Fragment() {
 
     private var currentImageUri: Uri? = null
     private var birthPlace = ""
-    private var birthDate = ""
+    private var password = ""
+    private var userId = 0
+    private var type = "pasien"
 
 
     private val viewModel by viewModels<ProfileViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,20 +57,41 @@ class ProfileFragment : Fragment() {
 
         binding = FragmentProfileBinding.inflate(layoutInflater)
         val root: View = binding.root
-        viewModel.getSession().observe(requireActivity()) { user ->
+
+
+        return root
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getSession().observe(viewLifecycleOwner) { user ->
             viewModel.getProfile(user.id)
         }
-
-        viewModel.profile.observe(requireActivity()) {
+        viewModel.profile.observe(viewLifecycleOwner) {
             if (it != null) {
+                password = it.kataSandi
+                userId = it.id
+                type = it.tipe
                 setupAssets(it)
             }
 
         }
 
-//        binding.imageContainer.setOnClickListener{
-//            startGallery()
-//        }
+        viewModel.profileUpdateResponse.observe(viewLifecycleOwner) {
+            if (it != null) {
+                showSuccess(it.message)
+                viewModel.nullProfileUpdate()
+            }
+        }
+
+
+        binding.imageContainer.setOnClickListener{
+            startGallery()
+        }
 
         binding.updateButton.setOnClickListener {
             save()
@@ -67,11 +99,6 @@ class ProfileFragment : Fragment() {
         binding.logoutButton.setOnClickListener {
             viewModel.logout()
         }
-
-
-
-        return root
-
     }
 
     private fun setupAssets(data: ProfileResponse) {
@@ -83,17 +110,17 @@ class ProfileFragment : Fragment() {
 
     private fun setupData(data: ProfileResponse) {
         with(binding) {
-//            nameProfile.setText(data.namaLengkap, TextView.BufferType.EDITABLE)
-//            emailProfile.setText(data.email, TextView.BufferType.EDITABLE)
-//            notelpProfile.setText(data.nomorTelepon, TextView.BufferType.EDITABLE)
-            nameProfile.text = data.namaLengkap
-            emailProfile.text = data.email
-            notelpProfile.text = data.nomorTelepon
+            nameProfile.setText(data.namaLengkap, TextView.BufferType.EDITABLE)
+            emailProfile.setText(data.email, TextView.BufferType.EDITABLE)
+            notelpProfile.setText(data.nomorTelepon, TextView.BufferType.EDITABLE)
+//            nameProfile.text = data.namaLengkap
+//            emailProfile.text = data.email
+//            notelpProfile.text = data.nomorTelepon
         }
 
         if (data.fotoProfil != null) {
-            currentImageUri = data.fotoProfil.toUri()
-            showImage()
+            val link = convertURL(data.fotoProfil)
+            Glide.with(this).load(link).into(binding.imageProfile)
         } else {
             binding.imageProfile.setImageResource(R.drawable.pasien)
         }
@@ -128,7 +155,7 @@ class ProfileFragment : Fragment() {
 
     private fun setupBirthDate(tanggalLahir: String?) {
         if (tanggalLahir != null ) {
-            binding.birthDate.text = tanggalLahir
+            binding.birthDate.text = tanggalLahir.parseTanggalLahir()
         } else {
             binding.birthDate.text = getString(R.string.isi)
         }
@@ -174,8 +201,35 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun save() {
-        //...
+        val fullName = binding.nameProfile.text
+        val email = binding.emailProfile.text
+        val phoneNum = binding.notelpProfile.text
+        val birthDate = binding.birthDate.text.toString()
+        if (currentImageUri == null) {
+            birthDate.dateFormattedYYYYMMDD()?.let {
+                viewModel.updateProfile(userId, fullName.toString(),
+                    email.toString(), phoneNum.toString(), null, birthPlace,
+                    it, null, type)
+            }
+        }
+        currentImageUri?.let { uri ->
+            val imageFile = Utils.uriToFile(uri, requireActivity()).reduceFile()
+
+            birthDate.dateFormattedYYYYMMDD()?.let {
+                viewModel.updateProfile(userId, fullName.toString(),
+                    email.toString(), phoneNum.toString(), imageFile, birthPlace,
+                    it, null, type)
+            }
+        }
+
+
+    }
+
+    private fun showSuccess(msg: String) {
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+
     }
 
 }

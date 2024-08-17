@@ -9,14 +9,10 @@ import com.example.brainhealth.di.db.ProfileResponse
 import com.example.brainhealth.di.db.ProfileUpdateResponse
 import com.example.brainhealth.di.db.RegisterRequest
 import com.example.brainhealth.di.db.RegisterResponse
-import com.example.brainhealth.di.db.TokenResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -50,10 +46,10 @@ interface ApiService {
         @Part("nama_lengkap") fullName: RequestBody,
         @Part("email") email: RequestBody,
         @Part("nomor_telepon") phoneNum: RequestBody,
-        @Part file: MultipartBody.Part,
+        @Part file: MultipartBody.Part?,
         @Part("tempat_lahir") birthPlace: RequestBody,
         @Part("tanggal_lahir") birthDate: RequestBody,
-        @Part("kata_sandi") password: RequestBody,
+        @Part("kata_sandi") password: RequestBody?,
         @Part("tipe") type: RequestBody
     ) : ProfileUpdateResponse
 

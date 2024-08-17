@@ -30,6 +30,7 @@ class SubmitFragment : Fragment() {
     }
 
     private var currentImageUri: Uri? = null
+    private var errorMessage = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,7 +70,17 @@ class SubmitFragment : Fragment() {
 
         }
 
-        viewModel.uploadResponse.observe(requireActivity()) {
+        viewModel.isError.observe(viewLifecycleOwner) {
+            showError(it)
+        }
+
+        viewModel.message.observe(viewLifecycleOwner) {
+            if (it != null) {
+                errorMessage = it
+            }
+        }
+
+        viewModel.uploadResponse.observe(viewLifecycleOwner) {
             if (it != null) {
                 viewModel.setUploadResponseNull() // Bisa dihapus jika tidak perlu, hanya agar bisa diback
                 val res = it.result
@@ -109,6 +120,12 @@ class SubmitFragment : Fragment() {
 
     private fun showLoading(state: Boolean) {
         binding.progressBar.visibility = if (state) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(isError: Boolean) {
+        if (isError) {
+            Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

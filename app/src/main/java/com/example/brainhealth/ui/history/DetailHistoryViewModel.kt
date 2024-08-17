@@ -27,6 +27,12 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
     private val _isDanger = MutableLiveData<Boolean>()
     val isDanger: LiveData<Boolean> = _isDanger
 
+    private val _isError = MutableLiveData<Boolean>()
+    val isError : LiveData<Boolean> = _isError
+
+    private val _message = MutableLiveData<String>()
+    val message : LiveData<String> = _message
+
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }
@@ -34,6 +40,7 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
     fun getHistory(userId: Int) {
         _isLoading.value = true
         _isDanger.value = false
+        _isError.value = false
         viewModelScope.launch {
             try {
                 val response = repository.getHistories(userId)
@@ -46,6 +53,7 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, SingleErrorResponse::class.java)
                 val errorMessage = errorBody.message
+                _isError.value = true
             } finally {
                 _isLoading.value = false
             }
@@ -55,6 +63,7 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
     fun getHistorySehat(userId: Int) {
         _isLoading.value = true
         _isDanger.value = false
+        _isError.value = false
         viewModelScope.launch {
             try {
                 val response = repository.getHistories(userId)
@@ -65,6 +74,7 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, SingleErrorResponse::class.java)
                 val errorMessage = errorBody.message
+                _isError.value = true
             } finally {
                 _isLoading.value = false
             }
@@ -74,6 +84,7 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
     fun getHistoryTidakSehat(userId: Int) {
         _isLoading.value = true
         _isDanger.value = false
+        _isError.value = false
         viewModelScope.launch {
             try {
                 val response = repository.getHistories(userId)
@@ -85,6 +96,7 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, SingleErrorResponse::class.java)
                 val errorMessage = errorBody.message
+                _isError.value = true
             } finally {
                 _isLoading.value = false
             }

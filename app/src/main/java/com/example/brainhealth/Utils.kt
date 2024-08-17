@@ -9,11 +9,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
@@ -26,6 +29,28 @@ object Utils {
 
     fun isPasswordValid(password: String): Boolean {
         return password.length >= 8
+    }
+
+    fun String.parseTanggalLahir(): String? {
+        val inputFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+        val outputFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH)
+
+        // Convert the date
+        val parsedDate = inputFormat.parse(this)
+        val formattedDate = parsedDate?.let { outputFormat.format(it) }
+
+        return formattedDate
+    }
+
+
+    fun String.dateFormattedYYYYMMDD(): String? {
+        val inputFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH)
+        val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        // Convert the date
+        val parsedDate = inputFormat.parse(this)
+        val formattedDate = parsedDate?.let { outputFormat.format(it) }
+        return formattedDate
     }
 
     private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
@@ -91,5 +116,11 @@ object Utils {
         } while (streamLength > MAXIMAL_SIZE)
         bitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
         return file
+    }
+
+    fun convertURL(localPath: String): String {
+        val baseUrl = "http://4.206.193.225"
+        val relativePath = localPath.replace("/app", "")
+        return "$baseUrl$relativePath"
     }
 }

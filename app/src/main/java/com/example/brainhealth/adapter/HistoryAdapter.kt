@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.brainhealth.R
+import com.example.brainhealth.Utils.convertURL
 import com.example.brainhealth.databinding.ItemHistoryBinding
 import com.example.brainhealth.di.db.HistoryItem
 import com.example.brainhealth.ui.history.RecommendationActivity
@@ -67,11 +68,6 @@ class HistoryAdapter: ListAdapter<HistoryItem, HistoryAdapter.MyViewHolder>(DIFF
             return input
         }
 
-        fun convertURL(localPath: String): String {
-            val baseUrl = "http://4.206.193.225"
-            val relativePath = localPath.replace("/app", "")
-            return "$baseUrl$relativePath"
-        }
 
         @SuppressLint("DefaultLocale")
         private fun convertDateTime(input: String): Pair<String, String> {

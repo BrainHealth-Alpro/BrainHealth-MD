@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -38,6 +39,7 @@ class UploadFragment : Fragment() {
     private var userId: Int = -1
     private var type: String = ""
     private var username: String = ""
+    private var errorMessage = ""
 
     private fun checkPermission(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(
@@ -54,11 +56,12 @@ class UploadFragment : Fragment() {
         _binding = FragmentUploadBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        viewModel.getSession().observe(requireActivity()) { user ->
+        viewModel.getSession().observe(viewLifecycleOwner) { user ->
             userId = user.id
             type = user.type
             username = user.name
         }
+
 
 
         binding.btnBrowse.setOnClickListener {
@@ -98,7 +101,7 @@ class UploadFragment : Fragment() {
 //
 //            startActivityForResult(Intent.createChooser(intent, "Select a file"), 100)
 //        }
-        viewModel.currentImageUri.observe(requireActivity()) {
+        viewModel.currentImageUri.observe(viewLifecycleOwner) {
             if (it != null) {
                 viewModel.setCurrentImageUri(null) // agar bisa kembali ke halaman ini
                 val submitFragment = SubmitFragment().apply {
@@ -118,6 +121,16 @@ class UploadFragment : Fragment() {
 
         viewModel.isLoading.observe(requireActivity()) {
             showLoading(it)
+        }
+
+        viewModel.isError.observe(viewLifecycleOwner) {
+            showError(it)
+        }
+
+        viewModel.message.observe(viewLifecycleOwner) {
+            if (it != null) {
+                errorMessage = it
+            }
         }
     }
 
@@ -147,7 +160,7 @@ class UploadFragment : Fragment() {
             dialog.dismiss()
             if (type == "pasien") {
                 viewModel.uploadLink(link, userId, username)
-                viewModel.uploadResponse.observe(requireActivity()) {
+                viewModel.uploadResponse.observe(viewLifecycleOwner) {
                     if (it != null) {
                         viewModel.setUploadResponseNull() // Bisa dihapus jika tidak perlu, hanya agar bisa diback
                         val res = it.result
@@ -178,7 +191,7 @@ class UploadFragment : Fragment() {
                 button2.setOnClickListener {
                     username = input2.toString()
                     viewModel.uploadLink(link, userId, username)
-                    viewModel.uploadResponse.observe(requireActivity()) {
+                    viewModel.uploadResponse.observe(viewLifecycleOwner) {
                         if (it != null) {
                             viewModel.setUploadResponseNull() // Bisa dihapus jika tidak perlu, hanya agar bisa diback
                             val res = it.result
@@ -264,6 +277,12 @@ class UploadFragment : Fragment() {
             activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             binding.progressText.visibility = View.GONE
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun showError(isError: Boolean) {
+        if (isError) {
+            Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
 

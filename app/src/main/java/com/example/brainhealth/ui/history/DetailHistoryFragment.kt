@@ -68,7 +68,7 @@ class DetailHistoryFragment : Fragment() {
 
 
     private fun observe() {
-        viewModel.isDanger.observe(requireActivity()) {
+        viewModel.isDanger.observe(viewLifecycleOwner) {
             if (it) {
                 binding.tvWarning.visibility = View.VISIBLE
             } else {
@@ -76,7 +76,7 @@ class DetailHistoryFragment : Fragment() {
             }
         }
         if (position == 1) {
-            viewModel.getSession().observe(requireActivity()) { user ->
+            viewModel.getSession().observe(viewLifecycleOwner) { user ->
                 if (user != null) {
                     viewModel.getHistory(user.id)
                 } else {
@@ -85,15 +85,18 @@ class DetailHistoryFragment : Fragment() {
                 }
             }
 
-            viewModel.listHistory.observe(requireActivity()) {
+            viewModel.listHistory.observe(viewLifecycleOwner) {
                 setData(it)
             }
-            viewModel.isLoading.observe(requireActivity()) {
+            viewModel.isLoading.observe(viewLifecycleOwner) {
                 showLoading(it)
+            }
+            viewModel.isError.observe(viewLifecycleOwner) {
+                showError(it)
             }
 
         } else if (position == 2) {
-            viewModel.getSession().observe(requireActivity()) { user ->
+            viewModel.getSession().observe(viewLifecycleOwner) { user ->
                 if (user != null) {
                     viewModel.getHistorySehat(user.id)
                 } else {
@@ -101,14 +104,17 @@ class DetailHistoryFragment : Fragment() {
                     startActivity(intent)
                 }
             }
-            viewModel.listHistory.observe(requireActivity()) {
+            viewModel.listHistory.observe(viewLifecycleOwner) {
                 setData(it)
             }
-            viewModel.isLoading.observe(requireActivity()) {
+            viewModel.isLoading.observe(viewLifecycleOwner) {
                 showLoading(it)
             }
+            viewModel.isError.observe(viewLifecycleOwner) {
+                showError(it)
+            }
         } else {
-            viewModel.getSession().observe(requireActivity()) { user ->
+            viewModel.getSession().observe(viewLifecycleOwner) { user ->
                 if (user != null) {
                     viewModel.getHistoryTidakSehat(user.id)
                 } else {
@@ -116,11 +122,14 @@ class DetailHistoryFragment : Fragment() {
                     startActivity(intent)
                 }
             }
-            viewModel.listHistory.observe(requireActivity()) {
+            viewModel.listHistory.observe(viewLifecycleOwner) {
                 setData(it)
             }
-            viewModel.isLoading.observe(requireActivity()) {
+            viewModel.isLoading.observe(viewLifecycleOwner) {
                 showLoading(it)
+            }
+            viewModel.isError.observe(viewLifecycleOwner) {
+                showError(it)
             }
         }
     }
@@ -133,5 +142,11 @@ class DetailHistoryFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(isError: Boolean) {
+        if (isError) {
+            Toast.makeText(requireActivity(), "Ada kesalahan", Toast.LENGTH_SHORT).show()
+        }
     }
 }
