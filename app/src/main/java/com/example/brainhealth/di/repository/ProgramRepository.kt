@@ -7,6 +7,7 @@ import com.example.brainhealth.di.db.LoginRequest
 import com.example.brainhealth.di.db.LoginResponse
 import com.example.brainhealth.di.db.PredictLinkRequest
 import com.example.brainhealth.di.db.ProfileResponse
+import com.example.brainhealth.di.db.ProfileUpdateResponse
 import com.example.brainhealth.di.db.RegisterRequest
 import com.example.brainhealth.di.db.RegisterResponse
 import com.example.brainhealth.di.db.TokenManager
@@ -42,9 +43,24 @@ class ProgramRepository private constructor(
         return apiService.getHistories(userId)
     }
 
-//    suspend fun updateProfile(id: Int, fullName: String, email: String, phoneNum: String, profileImage: File, birthPlace: String, birthDate: String, password: String, type: String) : ProfileUpdateResponse {
-//
-//    }
+    suspend fun updateProfile(id: Int, fullName: String, email: String, phoneNum: String, profileImage: File, birthPlace: String, birthDate: String, password: String, type: String) : ProfileUpdateResponse {
+        val idBody = id.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val fullnameBody = fullName.toRequestBody("text/plain".toMediaTypeOrNull())
+        val emailBody = email.toRequestBody("text/plain".toMediaTypeOrNull())
+        val phoneNumBody = phoneNum.toRequestBody("text/plain".toMediaTypeOrNull())
+        val file = profileImage.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val multipartBody = MultipartBody.Part.createFormData(
+            "gambar",
+            profileImage.name,
+            file
+        )
+        val birthPlaceBody = birthPlace.toRequestBody("text/plain".toMediaTypeOrNull())
+        val birthDateBody = birthDate.toRequestBody("text/plain".toMediaTypeOrNull())
+        val passwordBody = password.toRequestBody("text/plain".toMediaTypeOrNull())
+        val typeBody = type.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        return apiService.updateProfile(idBody, fullnameBody, emailBody, phoneNumBody, multipartBody, birthPlaceBody, birthDateBody, passwordBody, typeBody)
+    }
 
     suspend fun getProfile(userId: Int) : ProfileResponse {
         return apiService.getProfile(userId)

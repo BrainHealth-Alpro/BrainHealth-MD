@@ -43,19 +43,18 @@ interface ApiService {
         @Query("user_id") userId: Int
     ) : HistoryResponse
 
-    @FormUrlEncoded
-    @Headers("Content-Type: application/json")
+    @Multipart
     @POST("profile")
     suspend fun updateProfile(
-        @Field("id") id: Int,
-        @Field("nama_lengkap") fullName: String,
-        @Field("email") email: String,
-        @Field("nomor_telepon") phoneNum: String,
-        @Field("foto_profil") profileImage: String,
-        @Field("tempat_lahir") birthPlace: String,
-        @Field("tanggal_lahir") birthDate: String,
-        @Field("kata_sandi") password: String,
-        @Field("tipe") type: String
+        @Part("id") id: RequestBody,
+        @Part("nama_lengkap") fullName: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("nomor_telepon") phoneNum: RequestBody,
+        @Part file: MultipartBody.Part,
+        @Part("tempat_lahir") birthPlace: RequestBody,
+        @Part("tanggal_lahir") birthDate: RequestBody,
+        @Part("kata_sandi") password: RequestBody,
+        @Part("tipe") type: RequestBody
     ) : ProfileUpdateResponse
 
     @Headers("Content-Type: application/json")

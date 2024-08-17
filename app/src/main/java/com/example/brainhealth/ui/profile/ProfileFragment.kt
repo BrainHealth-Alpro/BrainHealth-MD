@@ -57,9 +57,9 @@ class ProfileFragment : Fragment() {
 
         }
 
-        binding.imageContainer.setOnClickListener{
-            startGallery()
-        }
+//        binding.imageContainer.setOnClickListener{
+//            startGallery()
+//        }
 
         binding.updateButton.setOnClickListener {
             save()
