@@ -157,7 +157,7 @@ class ProfileFragment : Fragment() {
         if (tanggalLahir != null ) {
             binding.birthDate.text = tanggalLahir.parseTanggalLahir()
         } else {
-            binding.birthDate.text = getString(R.string.isi)
+            binding.birthDate.text = "January 01, 2024"
         }
         binding.birthDate.setOnClickListener {
             val initialDate = Calendar.getInstance()
