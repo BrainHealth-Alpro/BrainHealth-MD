@@ -21,6 +21,18 @@ class ProfileViewModel(private val repository: ProgramRepository) : ViewModel() 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    // Daftar kota-kota Indonesia
+    val indonesianCities = listOf(
+        "Ambon", "Aceh", "Balikpapan", "Bandar Lampung", "Bandung", "Banjarmasin", "Batam", "Batu", "Bau-Bau",
+        "Bekasi", "Bengkulu", "Binjai", "Bitung", "Bogor", "Cilegon", "Cimahi", "Cirebon", "Denpasar", "Depok",
+        "Gorontalo", "Jakarta", "Jambi", "Jayapura", "Kediri", "Kendari", "Lhokseumawe", "Lubuklinggau", "Magelang",
+        "Makasar", "Malang", "Malinau", "Manado", "Manokwari", "Mataram", "Medan", "Merauke", "Madiun", "Palu",
+        "Parepare", "Pasuruan", "Pekalongan", "Pekanbaru", "Pematangsiantar", "Pontianak", "Probolinggo", "Purbalingga",
+        "Purwokerto", "Salatiga", "Samarinda", "Semarang", "Serang", "Sibolga", "Sidoarjo", "Solo", "Sorong", "Sukabumi",
+        "Tangerang", "Tanjungbalai", "Tarakan", "Tasikmalaya", "Tegal", "Ternate", "Tidore", "Tomohon", "Tual", "Yogyakarta"
+    )
+
+
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }
@@ -30,6 +42,7 @@ class ProfileViewModel(private val repository: ProgramRepository) : ViewModel() 
             _isLoading.value = true
             try {
                 val response = repository.getProfile(userId)
+                _profile.value = response
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
