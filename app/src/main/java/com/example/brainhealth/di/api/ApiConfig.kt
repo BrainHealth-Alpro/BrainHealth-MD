@@ -1,17 +1,20 @@
 package com.example.brainhealth.di.api
 
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import com.example.brainhealth.BuildConfig
 
 object ApiConfig {
 
     fun getApiService(): ApiService {
-        val loggingInterceptor =
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
 //        val authInterceptor = Interceptor { chain ->
 //            val req = chain.request()
 //            val requestHeaders = req.newBuilder()
@@ -28,7 +31,7 @@ object ApiConfig {
 //            .addInterceptor(authInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://4.206.193.225/api/")
+            .baseUrl("${BuildConfig.BASE_URL}/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
