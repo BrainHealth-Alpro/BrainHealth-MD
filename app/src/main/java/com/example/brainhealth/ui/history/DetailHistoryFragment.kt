@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.brainhealth.R
+import com.example.brainhealth.adapter.HistoryAdapter
 import com.example.brainhealth.databinding.FragmentDetailHistoryBinding
+import com.example.brainhealth.di.db.HistoryItem
 
 class DetailHistoryFragment : Fragment() {
 
@@ -54,11 +56,11 @@ class DetailHistoryFragment : Fragment() {
         }
     }
 
-//    private fun setUserData(userData: List<ItemsItem>) {
-//        val adapter = UserAdapter()
-//        adapter.submitList(userData)
-//        binding.rvHistory.adapter = adapter
-//    }
+    private fun setData(userData: List<HistoryItem>) {
+        val adapter = HistoryAdapter()
+        adapter.submitList(userData)
+        binding.rvHistory.adapter = adapter
+    }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE

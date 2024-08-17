@@ -61,4 +61,6 @@
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="nomor_telepon">Nomor Telepon</string>
     <string name="update_profile">Update Profile</string>
+    <string name="tempat_lahir">Tempat lahir</string>
+    <string name="tanggal_lahir">Tanggal Lahir</string>
 </resources>
