@@ -54,7 +54,7 @@ class ResultFragment : Fragment() {
             val uploadFragment = UploadFragment()
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.main_activity_fragment_container, uploadFragment)
-                addToBackStack(null) // Optional: add to back stack if you want to navigate back
+//                addToBackStack(null) // Optional: add to back stack if you want to navigate back
                 commit()
             }
         }

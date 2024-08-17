@@ -110,7 +110,7 @@ class UploadFragment : Fragment() {
                 }
                 activity?.supportFragmentManager?.beginTransaction()?.apply {
                     replace(R.id.main_activity_fragment_container, submitFragment)
-                    addToBackStack(null) // Optional: add to back stack if you want to navigate back
+//                    addToBackStack(null) // Optional: add to back stack if you want to navigate back
                     commit()
                 }
             }
@@ -158,7 +158,7 @@ class UploadFragment : Fragment() {
                         }
                         activity?.supportFragmentManager?.beginTransaction()?.apply {
                             replace(R.id.main_activity_fragment_container, resultFragment)
-                            addToBackStack(null) // Optional: add to back stack if you want to navigate back
+//                            addToBackStack(null) // Optional: add to back stack if you want to navigate back
                             commit()
                         }
                     }
@@ -189,7 +189,7 @@ class UploadFragment : Fragment() {
                             }
                             activity?.supportFragmentManager?.beginTransaction()?.apply {
                                 replace(R.id.main_activity_fragment_container, resultFragment)
-                                addToBackStack(null) // Optional: add to back stack if you want to navigate back
+//                                addToBackStack(null) // Optional: add to back stack if you want to navigate back
                                 commit()
                             }
                         }
