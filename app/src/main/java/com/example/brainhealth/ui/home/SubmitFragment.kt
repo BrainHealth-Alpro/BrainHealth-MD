@@ -48,8 +48,8 @@ class SubmitFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val uri = arguments?.getString("URI")
-        val username = arguments?.getString("username")
-        // TODO: USERNAME POST
+        val username = arguments?.getString("username") ?: ""
+        val userId = arguments?.getInt("userId", 0) ?: 0
         currentImageUri = Uri.parse(uri)
         binding.imgChosen.setImageURI(currentImageUri)
         binding.tvUsername.text = username
@@ -63,7 +63,7 @@ class SubmitFragment : Fragment() {
         binding.btnSubmit.setOnClickListener {
             currentImageUri?.let { uri ->
                 val imageFile = uriToFile(uri, requireActivity()).reduceFile()
-                viewModel.uploadImage(imageFile)
+                viewModel.uploadImage(imageFile, userId, username)
             }  ?: Toast.makeText(requireActivity(), "Failed upload", Toast.LENGTH_SHORT).show()
 
 

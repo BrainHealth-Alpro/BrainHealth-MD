@@ -3,9 +3,11 @@ package com.example.brainhealth.ui.profile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brainhealth.di.db.ErrorResponse
 import com.example.brainhealth.di.db.ProfileResponse
+import com.example.brainhealth.di.db.UserModel
 import com.example.brainhealth.di.repository.ProgramRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -18,6 +20,10 @@ class ProfileViewModel(private val repository: ProgramRepository) : ViewModel() 
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    fun getSession(): LiveData<UserModel> {
+        return repository.getSession().asLiveData()
+    }
 
     fun getProfile(userId: Int) {
         viewModelScope.launch {

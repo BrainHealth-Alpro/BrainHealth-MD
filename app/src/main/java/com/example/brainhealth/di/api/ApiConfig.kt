@@ -14,7 +14,7 @@ object ApiConfig {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://52.156.24.188/api/")
+            .baseUrl("http://4.206.193.225/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

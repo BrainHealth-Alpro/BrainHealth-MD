@@ -4,8 +4,10 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.brainhealth.di.db.PredictResponse
+import com.example.brainhealth.di.db.UserModel
 import com.example.brainhealth.di.repository.ProgramRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -21,6 +23,10 @@ class HomeViewModel(private val repository: ProgramRepository) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading : LiveData<Boolean> = _isLoading
 
+    fun getSession(): LiveData<UserModel> {
+        return repository.getSession().asLiveData()
+    }
+
     fun setCurrentImageUri(uri: Uri?) {
         _currentImageUri.value = uri
     }
@@ -29,11 +35,24 @@ class HomeViewModel(private val repository: ProgramRepository) : ViewModel() {
         _uploadResponse.value = null
     }
 
-    fun uploadImage(file: File) {
+    fun uploadImage(file: File, userId: Int, patientName: String) {
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                val response = repository.postResult(file)
+                val response = repository.postResult(file, userId, patientName)
+                _uploadResponse.value = response
+                _isLoading.value = false
+            } catch (e: HttpException) {
+                //
+            }
+        }
+    }
+
+    fun uploadLink(link: String, userId: Int, patientName: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val response = repository.postResultLink(link, userId, patientName)
                 _uploadResponse.value = response
                 _isLoading.value = false
             } catch (e: HttpException) {

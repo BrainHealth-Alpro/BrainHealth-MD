@@ -17,6 +17,7 @@ import com.example.brainhealth.MainActivity
 import com.example.brainhealth.R
 import com.example.brainhealth.ViewModelFactory
 import com.example.brainhealth.databinding.ActivityLoginBinding
+import com.example.brainhealth.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -44,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
         setupView()
         observe()
+        setupAction()
     }
 
     private fun setupView() {
@@ -56,6 +58,19 @@ class LoginActivity : AppCompatActivity() {
             binding.ivHeader.setImageResource(R.drawable.pasien)
             binding.tvWelcome.setText(R.string.welcome_text_pasien)
             binding.registerButton.text = Html.fromHtml(getString(R.string.register),  HtmlCompat.FROM_HTML_MODE_LEGACY)
+        }
+    }
+
+    private fun setupAction() {
+        binding.loginButton.setOnClickListener {
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            viewModel.login(email, password)
+        }
+
+        binding.registerButton.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 

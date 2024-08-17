@@ -35,7 +35,19 @@ class RegisterActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        setupAction()
+
         observe()
+    }
+
+    private fun setupAction() {
+        binding.signInButton.setOnClickListener {
+            val fullName = binding.etName.text.toString()
+            val email = binding.etEmail.text.toString()
+            val phoneNum = binding.etNotelp.text.toString()
+            val password = binding.etPassword.text.toString()
+            viewModel.postData(fullName, email, phoneNum, password)
+        }
     }
 
     private fun observe() {

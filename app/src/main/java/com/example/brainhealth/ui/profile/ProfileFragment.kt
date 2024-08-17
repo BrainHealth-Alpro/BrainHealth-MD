@@ -28,11 +28,14 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
+        val viewModel =
+            ViewModelProvider(this)[ProfileViewModel::class.java]
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        viewModel.getSession().observe(requireActivity()) { user ->
+            viewModel.getProfile(user.id)
+        }
 
         binding.imageContainer.setOnClickListener{
             startGallery()

@@ -2,6 +2,7 @@ package com.example.brainhealth.ui.home
 
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build.VERSION_CODES.S
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ class UploadFragment : Fragment() {
     }
 
     private var currentImageUri: Uri? = null
+    private var userId: Int = -1
     private var username: String = ""
 
     private fun checkPermission(permission: String): Boolean {
@@ -48,6 +50,11 @@ class UploadFragment : Fragment() {
     ): View {
         _binding = FragmentUploadBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        viewModel.getSession().observe(requireActivity()) { user ->
+            userId = user.id
+        }
+
 
         binding.btnBrowse.setOnClickListener {
             startGallery()
@@ -92,6 +99,7 @@ class UploadFragment : Fragment() {
                 val submitFragment = SubmitFragment().apply {
                     arguments = Bundle().apply {
                         putString("URI", it.toString())
+                        putInt("userId", userId)
                         putString("username", username)
                     }
                 }
@@ -127,8 +135,23 @@ class UploadFragment : Fragment() {
 
         button.setOnClickListener {
             val link = input.toString()
-
             dialog.dismiss()
+            val builder2 = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog)
+            val dialogView2 = layoutInflater.inflate(R.layout.custom_alert_dialog, null)
+            val title2 = dialogView2.findViewById<TextView>(R.id.titleDialog)
+            title2.text = getString(R.string.input_name_header)
+            val input2 = dialogView2.findViewById<EditText>(R.id.editText).text
+            val button2 = dialogView2.findViewById<Button>(R.id.submit_button)
+            builder.setView(dialogView)
+            val dialog2 = builder.create()
+
+            dialog.show()
+
+            button.setOnClickListener {
+                username = input.toString()
+                viewModel.uploadLink(link, userId, username)
+                dialog2.dismiss()
+            }
         }
     }
 

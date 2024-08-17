@@ -3,8 +3,10 @@ package com.example.brainhealth.di.repository
 import com.example.brainhealth.di.db.PredictResponse
 import com.example.brainhealth.di.api.ApiService
 import com.example.brainhealth.di.db.HistoryResponse
+import com.example.brainhealth.di.db.LoginRequest
 import com.example.brainhealth.di.db.LoginResponse
 import com.example.brainhealth.di.db.ProfileResponse
+import com.example.brainhealth.di.db.RegisterRequest
 import com.example.brainhealth.di.db.RegisterResponse
 import com.example.brainhealth.di.db.TokenManager
 import com.example.brainhealth.di.db.UserModel
@@ -24,12 +26,14 @@ class ProgramRepository private constructor(
 
     suspend fun register(fullName: String, email: String, phoneNum: String, password: String, type: String) : RegisterResponse {
         val token = TokenManager.getToken() ?: ""
-        return apiService.register(token, fullName, email, phoneNum, password, type)
+        val body = RegisterRequest(fullName, email, phoneNum, password, type)
+        return apiService.register(token, body)
     }
 
     suspend fun login(email: String, password: String) : LoginResponse {
         val token = TokenManager.getToken() ?: ""
-        return apiService.login(token, email, password)
+        val body = LoginRequest(email, password)
+        return apiService.login(token, body)
     }
 
     suspend fun getHistories(userId: Int): HistoryResponse {
@@ -45,14 +49,18 @@ class ProgramRepository private constructor(
         val token = TokenManager.getToken() ?: ""
         return apiService.getProfile(token, userId)
     }
-    suspend fun postResult(file: File) : PredictResponse {
+    suspend fun postResult(file: File, userId: Int, patientName: String) : PredictResponse {
         val resultFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
         val multipartBody = MultipartBody.Part.createFormData(
             "file",
             file.name,
             resultFile
         )
-        return apiService.postResult(multipartBody)
+        return apiService.postResult(multipartBody, userId, patientName)
+    }
+
+    suspend fun postResultLink(link: String, userId: Int, patientName: String) : PredictResponse {
+        return apiService.postResultLink(link, userId, patientName)
     }
 
     suspend fun saveSession(user: UserModel) {
