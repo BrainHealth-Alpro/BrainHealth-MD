@@ -34,4 +34,12 @@
     <string name="select_text">Silakan klik untuk mendaftar sebagai</string>
     <string name="dokter">Dokter</string>
     <string name="pasien">Pasien</string>
+    <string name="title_profile">Profile</string>
+    <string name="welcome_text">Selamat datang!</string>
+    <string name="enter_email">Email</string>
+    <string name="email_format_is_not_correct">Format email belum benar!</string>
+    <string name="enter_password">Kata Sandi</string>
+    <string name="password_can_t_be_lower_than_8_characters">Minimal 8 karakter!</string>
+    <string name="welcome_desc">Silakan melengkapi data ini untuk masuk ke akunmu.</string>
+    <string name="login">Masuk</string>
 </resources>

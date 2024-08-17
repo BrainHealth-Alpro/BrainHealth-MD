@@ -37,6 +37,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:orientation="horizontal"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,8 +87,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_role2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="26dp">
+            android:layout_height="wrap_content">
 
             <FrameLayout
                 android:id="@+id/role2"

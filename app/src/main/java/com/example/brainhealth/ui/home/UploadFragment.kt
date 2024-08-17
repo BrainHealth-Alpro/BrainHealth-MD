@@ -1,4 +1,4 @@
-package com.example.brainhealth
+package com.example.brainhealth.ui.home
 
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -11,7 +11,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.brainhealth.R
 import com.example.brainhealth.Utils.getImageUri
+import com.example.brainhealth.ViewModelFactory
 import com.example.brainhealth.databinding.FragmentUploadBinding
 
 class UploadFragment : Fragment() {
@@ -21,7 +23,7 @@ class UploadFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<MainViewModel> {
+    private val viewModel by viewModels<HomeViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
 

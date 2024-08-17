@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.brainhealth.HomeActivity
 import com.example.brainhealth.adapter.ViewPagerAdapter
 import com.example.brainhealth.databinding.ActivityHistoryBinding
 

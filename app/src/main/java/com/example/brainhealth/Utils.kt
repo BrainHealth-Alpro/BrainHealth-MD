@@ -18,6 +18,16 @@ import java.util.Date
 import java.util.Locale
 
 object Utils {
+
+    fun isEmailValid(email: CharSequence): Boolean {
+        val regex = Regex("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+        return regex.matches(email)
+    }
+
+    fun isPasswordValid(password: String): Boolean {
+        return password.length >= 8
+    }
+
     private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
     private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
 

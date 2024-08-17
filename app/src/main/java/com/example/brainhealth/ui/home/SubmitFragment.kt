@@ -1,4 +1,4 @@
-package com.example.brainhealth
+package com.example.brainhealth.ui.home
 
 import android.app.Activity
 import android.content.Intent
@@ -11,9 +11,11 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.brainhealth.HomeActivity.Companion.IMAGE_DATA
+import com.example.brainhealth.R
+import com.example.brainhealth.UCropActivity
 import com.example.brainhealth.Utils.reduceFile
 import com.example.brainhealth.Utils.uriToFile
+import com.example.brainhealth.ViewModelFactory
 import com.example.brainhealth.databinding.FragmentSubmitBinding
 
 class SubmitFragment : Fragment() {
@@ -23,7 +25,7 @@ class SubmitFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<MainViewModel> {
+    private val viewModel by viewModels<HomeViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
 
