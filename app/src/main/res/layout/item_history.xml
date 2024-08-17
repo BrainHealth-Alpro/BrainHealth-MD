@@ -26,11 +26,12 @@
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/unknown"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:text="@string/unknown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.13"
             app:layout_constraintStart_toEndOf="@+id/imgHistory"
@@ -39,20 +40,19 @@
 
         <TextView
             android:id="@+id/tvResult"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tvName"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
             tools:text="Hasil" />
 
         <TextView
             android:id="@+id/tvDesc"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="15sp"
@@ -65,21 +65,21 @@
 
         <TextView
             android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Tanggal: 01/01/23"
             android:textSize="13sp"
-            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="@+id/tvDesc"
             app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
 
         <TextView
             android:id="@+id/tvTime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Waktu: 23:59:00"
             android:textSize="12sp"
-            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="@+id/tvDate"
             app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
