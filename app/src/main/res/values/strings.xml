@@ -69,7 +69,7 @@
     <string name="operasi_description">Operasi bertujuan untuk mengangkat tumor. Namun, jika tumor tumbuh di daerah yang sulit terjangkau, tumor mungkin tidak bisa diangkat seluruhnya. Dalam hal ini, dokter hanya akan mengangkat tumor yang masih mungkin untuk diangkat dan menggunakan metode lain untuk menghilangkan sisa tumor.</string>
     <string name="_2_embolisasi">2. Embolisasi endovaskular</string>
     <string name="embolisasi_description">Embolisasi endovaskular dilakukan jika operasi tidak dapat mengangkat seluruh tumor yang ada. Pengobatan ini bertujuan untuk menghentikan aliran darah ke meningioma agar ukurannya menyusut.\nDalam prosesnya, dokter akan memasukkan kateter ke pembuluh darah yang menyuplai meningioma, kemudian memasukkan lilitan atau lem khusus untuk menghalangi aliran darah ke tumor.</string>
-    <string name="warning_message">Segera hubungi rumah sakit terdekat untuk penanganan lebih lanjut. Klik riwauyat untuk mengetahui rekomendasi perawatan</string>
+    <string name="warning_message">Segera hubungi rumah sakit terdekat untuk penanganan lebih lanjut. Klik riwayat untuk mengetahui rekomendasi perawatan</string>
     <string name="logout">Logout</string>
     <string name="isi">Isi</string>
     <string name="unknown">unknown</string>

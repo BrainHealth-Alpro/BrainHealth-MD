@@ -57,7 +57,6 @@ class DetailHistoryFragment : Fragment() {
 
 
         viewModel.isDanger.observe(requireActivity()) {
-            println("WEYNARD DANGER $it")
             if (it) {
                 binding.tvWarning.visibility = View.VISIBLE
             } else {

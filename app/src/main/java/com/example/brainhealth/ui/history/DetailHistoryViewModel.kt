@@ -73,12 +73,13 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
 
     fun getHistoryTidakSehat(userId: Int) {
         _isLoading.value = true
-        _isDanger.value = true
+        _isDanger.value = false
         viewModelScope.launch {
             try {
                 val response = repository.getHistories(userId)
                 val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
                 val sortedHistory = response.history.sortedByDescending { dateFormat.parse(it.datetime) }
+                if (sortedHistory.isNotEmpty()) _isDanger.value = true
                 _listHistory.value = sortedHistory.filter { it.jenisTumor != "notumor" }
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
