@@ -6,6 +6,7 @@
         <item name="colorOnPrimary">@color/baby_blue</item>
         <item name="colorPrimaryContainer">@color/baby_blue</item>
         <item name="colorOnPrimaryContainer">@color/baby_blue</item>
+        <item name="colorSecondaryContainer">@color/baby_blue</item>
 
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowEnterTransition">@android:transition/slide_right</item>

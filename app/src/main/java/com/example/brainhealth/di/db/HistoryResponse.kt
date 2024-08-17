@@ -28,6 +28,6 @@ data class HistoryItem(
 	@field:SerializedName("jenis_tumor")
 	val jenisTumor: String?,
 
-	@field:SerializedName("gambar")
-	val gambar: String
+	@field:SerializedName("gambar_path")
+	val gambarPath: String
 )

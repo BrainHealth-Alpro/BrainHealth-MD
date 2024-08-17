@@ -71,5 +71,7 @@
     <string name="embolisasi_description">Embolisasi endovaskular dilakukan jika operasi tidak dapat mengangkat seluruh tumor yang ada. Pengobatan ini bertujuan untuk menghentikan aliran darah ke meningioma agar ukurannya menyusut.\nDalam prosesnya, dokter akan memasukkan kateter ke pembuluh darah yang menyuplai meningioma, kemudian memasukkan lilitan atau lem khusus untuk menghalangi aliran darah ke tumor.</string>
     <string name="warning_message">Segera hubungi rumah sakit terdekat untuk penanganan lebih lanjut. Klik riwauyat untuk mengetahui rekomendasi perawatan</string>
     <string name="logout">Logout</string>
+    <string name="isi">Isi</string>
+    <string name="unknown">unknown</string>
 
 </resources>

@@ -13,6 +13,9 @@ import com.example.brainhealth.di.repository.ProgramRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.Locale.filter
 
 class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewModel() {
     private val _listHistory = MutableLiveData<List<HistoryItem>>()
@@ -34,8 +37,10 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
         viewModelScope.launch {
             try {
                 val response = repository.getHistories(userId)
-                _listHistory.value = response.history
-                val hasTumor = response.history.any { it.jenisTumor != "Notumor" }
+                val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+                val sortedHistory = response.history.sortedByDescending { dateFormat.parse(it.datetime) }
+                _listHistory.value = sortedHistory
+                val hasTumor = response.history.any { it.jenisTumor != "notumor" }
                 if (hasTumor) _isDanger.value = true
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
@@ -53,7 +58,9 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
         viewModelScope.launch {
             try {
                 val response = repository.getHistories(userId)
-                _listHistory.value = response.history.filter { it.jenisTumor == "Notumor" }
+                val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+                val sortedHistory = response.history.sortedByDescending { dateFormat.parse(it.datetime) }
+                _listHistory.value = sortedHistory.filter { it.jenisTumor == "notumor" }
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, SingleErrorResponse::class.java)
@@ -70,7 +77,9 @@ class DetailHistoryViewModel(private val repository: ProgramRepository) : ViewMo
         viewModelScope.launch {
             try {
                 val response = repository.getHistories(userId)
-                _listHistory.value = response.history.filter { it.jenisTumor != null }
+                val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+                val sortedHistory = response.history.sortedByDescending { dateFormat.parse(it.datetime) }
+                _listHistory.value = sortedHistory.filter { it.jenisTumor != "notumor" }
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, SingleErrorResponse::class.java)

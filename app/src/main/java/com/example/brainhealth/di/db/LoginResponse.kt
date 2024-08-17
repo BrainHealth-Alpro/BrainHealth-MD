@@ -11,5 +11,8 @@ data class LoginResponse(
 	val message: String,
 
 	@field:SerializedName("email")
-	val email: String
+	val email: String,
+
+	@field:SerializedName("nama_lengkap")
+	val namaLengkap: String
 )

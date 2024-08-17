@@ -37,6 +37,7 @@ class DetailHistoryFragment : Fragment() {
     ): View {
 
         binding = FragmentDetailHistoryBinding.inflate(layoutInflater)
+        val root: View = binding.root
 
         arguments?.let {
             position = it.getInt(ARG_POSITION)
@@ -48,7 +49,7 @@ class DetailHistoryFragment : Fragment() {
         val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
         binding.rvHistory.addItemDecoration(itemDecoration)
 
-        return inflater.inflate(R.layout.fragment_detail_history, container, false)
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,6 +57,7 @@ class DetailHistoryFragment : Fragment() {
 
 
         viewModel.isDanger.observe(requireActivity()) {
+            println("WEYNARD DANGER $it")
             if (it) {
                 binding.tvWarning.visibility = View.VISIBLE
             } else {
@@ -74,7 +76,7 @@ class DetailHistoryFragment : Fragment() {
             }
 
             viewModel.listHistory.observe(requireActivity()) {
-               setData(it)
+                setData(it)
             }
             viewModel.isLoading.observe(requireActivity()) {
                 showLoading(it)

@@ -31,12 +31,11 @@ class LoginViewModel(private val repository: ProgramRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = repository.login(email, password)
-                val result = response
                 val saveSessionJob = saveSession(
                     UserModel(
                         email,
-                        result.id,
-                        "result.name",
+                        response.id,
+                        response.namaLengkap,
                         type,
                         true
                     )

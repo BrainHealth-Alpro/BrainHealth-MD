@@ -125,6 +125,8 @@ class ProfileFragment : Fragment() {
     private fun setupBirthDate(tanggalLahir: String?) {
         if (tanggalLahir != null ) {
             binding.birthDate.text = tanggalLahir
+        } else {
+            binding.birthDate.text = getString(R.string.isi)
         }
         binding.birthDate.setOnClickListener {
             val initialDate = Calendar.getInstance()

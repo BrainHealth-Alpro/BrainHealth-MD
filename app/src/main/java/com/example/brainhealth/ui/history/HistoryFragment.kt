@@ -44,7 +44,7 @@ class HistoryFragment : Fragment() {
         val root: View = binding.root
 
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity(),)
+        val sectionsPagerAdapter = SectionsPagerAdapter(requireActivity())
         val viewPager: ViewPager2 = binding.vpHistory
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabHistory
