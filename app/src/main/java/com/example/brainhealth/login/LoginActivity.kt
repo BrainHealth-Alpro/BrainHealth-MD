@@ -1,5 +1,6 @@
 package com.example.brainhealth.login
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat

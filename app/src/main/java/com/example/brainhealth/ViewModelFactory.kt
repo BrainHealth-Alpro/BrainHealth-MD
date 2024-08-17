@@ -11,6 +11,7 @@ import com.example.brainhealth.login.LoginViewModel
 import com.example.brainhealth.register.RegisterViewModel
 import com.example.brainhealth.ui.history.DetailHistoryViewModel
 import com.example.brainhealth.ui.history.HistoryViewModel
+import com.example.brainhealth.ui.history.RecommendationViewModel
 import com.example.brainhealth.ui.home.HomeViewModel
 import com.example.brainhealth.ui.profile.ProfileViewModel
 
@@ -35,6 +36,9 @@ class ViewModelFactory(private val repository: ProgramRepository) : ViewModelPro
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(RecommendationViewModel::class.java) -> {
+                RecommendationViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

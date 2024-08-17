@@ -8,4 +8,6 @@
     <color name="purple_black">#32343E</color>
     <color name="light_purple_black">#646982</color>
     <color name="grey">#A3A3A3</color>
+    <color name="red">#D02F35</color>
+    <color name="red_jambu">#FFE1E6</color>
 </resources>
